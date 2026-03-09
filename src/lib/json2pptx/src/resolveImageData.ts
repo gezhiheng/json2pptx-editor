@@ -1,4 +1,6 @@
 const dataUrlRegex = /^data:image\/[^;]+;base64,/
+const resolvedImageCache = new Map<string, Promise<string>>()
+const MAX_IMAGE_CACHE_ENTRIES = 8
 
 const mimeFromPath = (path: string) => {
   const lower = path.toLowerCase()
@@ -31,7 +33,7 @@ const readLocalFile = async (path: string) => {
   return buffer.toString('base64')
 }
 
-export const resolveImageData = async (src: string) => {
+async function resolveImageDataUncached (src: string): Promise<string> {
   if (dataUrlRegex.test(src)) return src
 
   const isFileUrl = src.startsWith('file://')
@@ -58,4 +60,25 @@ export const resolveImageData = async (src: string) => {
   const base64 = toBase64(arrayBuffer)
   const contentType = response.headers.get('content-type') || mimeFromPath(src)
   return `data:${contentType};base64,${base64}`
+}
+
+export const resolveImageData = async (src: string): Promise<string> => {
+  if (dataUrlRegex.test(src)) return src
+
+  const cached = resolvedImageCache.get(src)
+  if (cached) return cached
+
+  while (resolvedImageCache.size >= MAX_IMAGE_CACHE_ENTRIES) {
+    const firstKey = resolvedImageCache.keys().next().value
+    if (!firstKey) break
+    resolvedImageCache.delete(firstKey)
+  }
+
+  const pending = resolveImageDataUncached(src).catch((error) => {
+    resolvedImageCache.delete(src)
+    throw error
+  })
+
+  resolvedImageCache.set(src, pending)
+  return pending
 }
