@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import { parseCustomContent } from '../src/lib/pptx-custom'
+import { parseCustomContent } from '../src/lib/pptx-custom/src/index'
 
 function loadCustomContentFixture (): string {
   return readFileSync('src/mock/custom-content-example.txt', 'utf8')
