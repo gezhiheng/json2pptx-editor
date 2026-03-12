@@ -8,14 +8,14 @@
     "type": "git",
     "url": "https://github.com/gezhiheng/json2ppt-editor/"
   },
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs",
+      "require": "./dist/index.js",
       "default": "./dist/index.mjs"
     }
   },
