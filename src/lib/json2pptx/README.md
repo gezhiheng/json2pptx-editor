@@ -68,7 +68,6 @@ const { blob, fileName } = await createPPTX(presentation)
 - `background` / `fill` 使用显式联合类型：`solid | gradient | image`。
 - 导出的 `.pptx` 只使用 Office 原生 XML 表达视觉信息，不会嵌入自定义 JSON 文件。
 - 与 `ppt2json` 的视觉 round-trip 优先围绕共享视觉 primitive 和仓库内模板优化。
-- `Deck` / `DeckTheme` 仍保留为兼容别名，但新的推荐命名是 `Presentation` / `PresentationTheme`。
 
 ## 开发
 

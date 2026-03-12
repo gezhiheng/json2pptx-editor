@@ -8,7 +8,7 @@ import { mapColor, toPx } from './utils'
 type PresentationDocument = ReturnType<typeof parseDocument>
 
 export type ParsedResult = {
-  deck: PresentationData
+  presentation: PresentationData
   warnings: string[]
 }
 
@@ -34,7 +34,7 @@ export async function parsePptxToJson(file: File): Promise<ParsedResult> {
   const fileBuffer = await file.arrayBuffer()
 
   return {
-    deck: await buildDeckFromPptx(fileBuffer),
+    presentation: await buildDeckFromPptx(fileBuffer),
     warnings: []
   }
 }
@@ -82,4 +82,5 @@ function normalizeThemeColor(color: string): string {
   return /^#([0-9A-F]{6}|[0-9A-F]{8})$/.test(mapped) ? mapped : color
 }
 
-export type { Deck, Presentation, PresentationData, PresentationTheme, Slide, SlideElement } from './types'
+export type { PresentationData, PresentationTheme, Slide, SlideElement } from './types'
+export * from './type/fallback'

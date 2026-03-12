@@ -1,6 +1,6 @@
 # pptx-custom
 
-[English](./README.md)
+[English](./src/lib/pptx-custom/README.md)
 
 用于对 `json2pptx` JSON deck 进行两阶段定制：
 
@@ -35,7 +35,7 @@ import {
   applyCustomContentToTemplate
 } from 'pptx-custom'
 
-const withContent = applyCustomContent(templateDeck, backendText)
+const withContent = applyCustomContent(templateJSON, backendText)
 
 const withTheme = applyCustomTheme(withContent, {
   themeColors: ['#111111', '#333333', '#555555', '#777777', '#999999', '#BBBBBB'],
@@ -64,8 +64,8 @@ const withTheme = applyCustomTheme(withContent, {
   }
 })
 
-const slides = parseCustomContent(backendText)
-const withContentDirect = applyCustomContentToTemplate(templateDeck, slides)
+const slides = parseCustomContent(customContent)
+const withContentDirect = applyCustomContentToTemplate(templateJSON, slides)
 ```
 
 ## 自定义内容输入格式
@@ -91,7 +91,7 @@ const withContentDirect = applyCustomContentToTemplate(templateDeck, slides)
 - `section` -> `transition`
 - `ending` -> `end`
 
-NDJSON 示例：
+自定义内容示例：
 
 ```json
 {"type":"cover","data":{"title":"Title","text":"Subtitle"}}
@@ -129,4 +129,3 @@ NDJSON 示例：
 - 当同时提供 `backgroundImage` 与 `backgroundColor` 时，会在目标页应用
   50% 透明度的背景色叠加效果。
 - 当前行为下，`clearBackgroundImage` 也会同时清除 logo 图片。
-- `Deck` 仍保留为兼容别名，但新的推荐根类型命名是 `Presentation`。

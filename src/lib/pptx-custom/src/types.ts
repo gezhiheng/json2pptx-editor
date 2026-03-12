@@ -255,8 +255,6 @@ export type Presentation = {
 
 export type PresentationData = Presentation
 
-export type Deck = Presentation
-
 export type BackendCoverData = {
   title: string
   text: string

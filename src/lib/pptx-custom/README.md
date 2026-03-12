@@ -1,6 +1,6 @@
 # pptx-custom
 
-[中文文档](./README.zh-CN.md)
+[中文文档](./src/lib/pptx-custom/README.zh-CN.md)
 
 Utilities for customizing `json2pptx` JSON decks in two stages:
 
@@ -35,7 +35,7 @@ import {
   applyCustomContentToTemplate
 } from 'pptx-custom'
 
-const withContent = applyCustomContent(templateDeck, backendText)
+const withContent = applyCustomContent(templateJSON, customContent)
 
 const withTheme = applyCustomTheme(withContent, {
   themeColors: ['#111111', '#333333', '#555555', '#777777', '#999999', '#BBBBBB'],
@@ -64,8 +64,8 @@ const withTheme = applyCustomTheme(withContent, {
   }
 })
 
-const slides = parseCustomContent(backendText)
-const withContentDirect = applyCustomContentToTemplate(templateDeck, slides)
+const slides = parseCustomContent(customContent)
+const withContentDirect = applyCustomContentToTemplate(templateJSON, slides)
 ```
 
 ## Custom Content Input
@@ -91,7 +91,7 @@ Legacy aliases accepted in input:
 - `section` -> `transition`
 - `ending` -> `end`
 
-Example NDJSON:
+Example custom content:
 
 ```json
 {"type":"cover","data":{"title":"Title","text":"Subtitle"}}
@@ -129,4 +129,3 @@ Example NDJSON:
 - When both `backgroundImage` and `backgroundColor` are provided, background color is
   applied as a 50% alpha overlay color on targeted slides.
 - `clearBackgroundImage` also clears logo images in current behavior.
-- `Deck` remains available as a compatibility alias, but the recommended root type name is `Presentation`.

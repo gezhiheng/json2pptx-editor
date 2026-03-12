@@ -166,7 +166,3 @@ export type Presentation = {
 }
 
 export type PresentationData = Presentation
-
-export type DeckTheme = PresentationTheme
-
-export type Deck = Presentation

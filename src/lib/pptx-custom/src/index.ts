@@ -11,7 +11,6 @@ export {
 
 export type {
   CustomSlide,
-  Deck,
   Presentation,
   PresentationData,
   PresentationTheme,
@@ -23,3 +22,4 @@ export type {
   TemplateJsonSlide,
   TemplateJsonTheme
 } from './types'
+export * from './type/fallback'

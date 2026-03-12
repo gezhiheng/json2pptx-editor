@@ -191,8 +191,6 @@ export { getElementRange, getLineElementPath };
 export { resolveImageData };
 export type {
   BaseElement,
-  Deck,
-  DeckTheme,
   Presentation,
   PresentationData,
   PresentationTheme,
@@ -209,3 +207,4 @@ export type {
   TextContent,
   TextElement
 } from "./types/ppt";
+export * from "./type/fallback";

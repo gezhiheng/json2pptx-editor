@@ -139,7 +139,3 @@ export type PresentationData = {
   slides?: Slide[]
   theme?: PresentationTheme
 }
-
-export type Presentation = PresentationData
-
-export type Deck = PresentationData
