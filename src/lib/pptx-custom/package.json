@@ -39,10 +39,10 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "json2pptx-schema": "0.2.1"
+    "json2pptx-schema": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.5.1",
-    "typescript": "^5.6.3"
+    "typescript": "^5.9.3"
   }
 }
