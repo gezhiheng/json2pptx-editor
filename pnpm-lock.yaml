@@ -94,7 +94,7 @@ importers:
   src/lib/json2pptx:
     dependencies:
       json2pptx-schema:
-        specifier: workspace:*
+        specifier: 0.2.2
         version: link:../json2pptx-schema
       jszip:
         specifier: ^3.10.1
@@ -147,7 +147,7 @@ importers:
   src/lib/pptx-custom:
     dependencies:
       json2pptx-schema:
-        specifier: workspace:*
+        specifier: 0.2.2
         version: link:../json2pptx-schema
     devDependencies:
       tsup:
@@ -160,7 +160,7 @@ importers:
   src/lib/pptx-previewer:
     dependencies:
       json2pptx-schema:
-        specifier: workspace:*
+        specifier: 0.2.2
         version: link:../json2pptx-schema
       react:
         specifier: '>=18'
@@ -179,7 +179,7 @@ importers:
   src/lib/pptx2json:
     dependencies:
       json2pptx-schema:
-        specifier: workspace:*
+        specifier: 0.2.2
         version: link:../json2pptx-schema
       jszip:
         specifier: ^3.10.1
