@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 export default defineConfig({
   plugins: [tailwindcss(), react()],
   resolve: {
+    dedupe: ["react", "react-dom"],
     alias: {
       buffer: "buffer",
       process: "process/browser",
