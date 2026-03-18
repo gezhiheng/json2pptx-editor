@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Editor from '@monaco-editor/react'
 import { Download, FilePlus2, Pipette, Sparkles, Upload } from 'lucide-react'
 import { Button } from './ui/button'
@@ -15,7 +15,7 @@ const editorOptions = {
 type EditorPanelProps = {
   value: string
   onChange: (nextValue: string) => void
-  onImportCustomContent?: (content: string) => void
+  onImportCustomContent?: (content: string) => void | Promise<void>
   onDownload?: () => void
 }
 
@@ -27,6 +27,8 @@ export function EditorPanel ({
 }: EditorPanelProps): React.JSX.Element {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const customContentInputRef = useRef<HTMLInputElement>(null)
+  const [isImportingJson, setIsImportingJson] = useState(false)
+  const [isImportingCustomContent, setIsImportingCustomContent] = useState(false)
   const toolButtonClass =
     'h-8 px-2 text-ink-600 hover:bg-ink-200 hover:text-ink-900'
 
@@ -64,41 +66,43 @@ export function EditorPanel ({
     }
   }
 
-  function handleFileChange (event: React.ChangeEvent<HTMLInputElement>) {
+  async function handleFileChange (event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0]
     if (!file) return
+    const input = event.currentTarget
 
-    const reader = new FileReader()
-    reader.onload = e => {
-      const content = e.target?.result
-      if (typeof content === 'string') {
-        onChange(content)
-      }
+    setIsImportingJson(true)
+    try {
+      const content = await readFileAsText(file)
+      onChange(content)
+    } finally {
+      setIsImportingJson(false)
+      input.value = ''
     }
-    reader.readAsText(file)
-    event.target.value = ''
   }
 
-  function handleCustomContentFileChange (
+  async function handleCustomContentFileChange (
     event: React.ChangeEvent<HTMLInputElement>
-  ) {
+  ): Promise<void> {
     const file = event.target.files?.[0]
     if (!file) return
+    const input = event.currentTarget
     if (!file.name.toLowerCase().endsWith('.txt')) {
       alert('Custom content import only supports .txt files.')
-      event.target.value = ''
+      input.value = ''
       return
     }
 
-    const reader = new FileReader()
-    reader.onload = e => {
-      const content = e.target?.result
-      if (typeof content === 'string' && onImportCustomContent) {
-        onImportCustomContent(content)
+    setIsImportingCustomContent(true)
+    try {
+      const content = await readFileAsText(file)
+      if (onImportCustomContent) {
+        await onImportCustomContent(content)
       }
+    } finally {
+      setIsImportingCustomContent(false)
+      input.value = ''
     }
-    reader.readAsText(file)
-    event.target.value = ''
   }
 
   return (
@@ -145,6 +149,8 @@ export function EditorPanel ({
             size='sm'
             className={toolButtonClass}
             onClick={handleImportCustomContentClick}
+            loading={isImportingCustomContent}
+            disabled={!onImportCustomContent || isImportingJson}
             title='Upload custom content'
           >
             <FilePlus2 className='h-4 w-4' />
@@ -155,6 +161,8 @@ export function EditorPanel ({
             size='sm'
             className={toolButtonClass}
             onClick={handleImportClick}
+            loading={isImportingJson}
+            disabled={isImportingCustomContent}
             title='Upload JSON'
           >
             <Upload className='h-4 w-4' />
@@ -166,6 +174,7 @@ export function EditorPanel ({
               size='sm'
               className={toolButtonClass}
               onClick={onDownload}
+              disabled={isImportingJson || isImportingCustomContent}
               title='Download JSON'
             >
               <Download className='h-4 w-4' />
@@ -186,6 +195,23 @@ export function EditorPanel ({
       </div>
     </section>
   )
+}
+
+function readFileAsText (file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = event => {
+      const content = event.target?.result
+      if (typeof content === 'string') {
+        resolve(content)
+        return
+      }
+      reject(new Error('Failed to read file as text.'))
+    }
+    reader.onerror = () =>
+      reject(reader.error ?? new Error('Failed to read file as text.'))
+    reader.readAsText(file)
+  })
 }
 
 type ColorValue = {

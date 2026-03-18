@@ -240,9 +240,10 @@ export function PreviewPanel ({
               size='sm'
               className={toolButtonClass}
               onClick={handleUploadClick}
-              disabled={isExporting || isImporting}
-              title='Import PPTX (beta)'
-              aria-label='Import PPTX (beta)'
+              loading={isImporting}
+              disabled={isExporting}
+              title={isImporting ? 'Importing PPTX...' : 'Import PPTX (beta)'}
+              aria-label={isImporting ? 'Importing PPTX' : 'Import PPTX (beta)'}
             >
               <Upload className='h-4 w-4' />
             </Button>
@@ -255,9 +256,10 @@ export function PreviewPanel ({
             size='sm'
             className={toolButtonClass}
             onClick={onExportPptx}
-            disabled={isExporting || isImporting}
-            title='Export PPTX'
-            aria-label='Export PPTX'
+            loading={isExporting}
+            disabled={isImporting}
+            title={isExporting ? 'Exporting PPTX...' : 'Export PPTX'}
+            aria-label={isExporting ? 'Exporting PPTX' : 'Export PPTX'}
           >
             <Download className='h-4 w-4' />
           </Button>

@@ -1,5 +1,5 @@
 import type { ChangeEvent, RefObject } from 'react'
-import { ImagePlus } from 'lucide-react'
+import { ImagePlus, LoaderCircle } from 'lucide-react'
 import { MediaScopeSelector } from './MediaScopeSelector'
 import type {
   LogoPosition,
@@ -11,7 +11,7 @@ import type {
 const mediaFrameClass =
   'relative h-56 w-full max-w-[340px] overflow-hidden rounded-[28px] border border-dashed border-[#C3D4EA] bg-[#FBFDFF]'
 const uploadMediaButtonClass =
-  'flex h-56 w-full max-w-[340px] flex-col items-center justify-center gap-1.5 rounded-[28px] border border-dashed border-[#C3D4EA] bg-[#FBFDFF] text-[#62769A] transition hover:border-[#95B2D4]'
+  'flex h-56 w-full max-w-[340px] flex-col items-center justify-center gap-1.5 rounded-[28px] border border-dashed border-[#C3D4EA] bg-[#FBFDFF] text-[#62769A] transition hover:border-[#95B2D4] disabled:cursor-wait disabled:border-[#95B2D4] disabled:opacity-80'
 const removeMediaButtonClass =
   'absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-sm font-medium text-[#5E708F] shadow-sm backdrop-blur transition hover:bg-white'
 
@@ -23,6 +23,8 @@ type MediaSettingsSectionProps = {
   backgroundScope: MediaScope
   logoScope: MediaScope
   logoPosition: LogoPosition
+  isReadingBackgroundImage: boolean
+  isReadingLogoImage: boolean
   onBackgroundFileChange: (event: ChangeEvent<HTMLInputElement>) => void
   onLogoFileChange: (event: ChangeEvent<HTMLInputElement>) => void
   onBackgroundImageRemove: () => void
@@ -42,6 +44,8 @@ export function MediaSettingsSection ({
   backgroundScope,
   logoScope,
   logoPosition,
+  isReadingBackgroundImage,
+  isReadingLogoImage,
   onBackgroundFileChange,
   onLogoFileChange,
   onBackgroundImageRemove,
@@ -84,10 +88,14 @@ export function MediaSettingsSection ({
               type='button'
               onClick={() => backgroundFileInputRef.current?.click()}
               className={uploadMediaButtonClass}
+              disabled={isReadingBackgroundImage}
+              aria-busy={isReadingBackgroundImage}
             >
-              <ImagePlus className='h-7 w-7' strokeWidth={1.5} />
+              {isReadingBackgroundImage
+                ? <LoaderCircle className='h-7 w-7 animate-spin' strokeWidth={1.5} />
+                : <ImagePlus className='h-7 w-7' strokeWidth={1.5} />}
               <span className='max-w-[85%] truncate text-base font-medium'>
-                Upload background image
+                {isReadingBackgroundImage ? 'Loading background image...' : 'Upload background image'}
               </span>
             </button>
           )}
@@ -135,10 +143,14 @@ export function MediaSettingsSection ({
               type='button'
               onClick={() => logoFileInputRef.current?.click()}
               className={uploadMediaButtonClass}
+              disabled={isReadingLogoImage}
+              aria-busy={isReadingLogoImage}
             >
-              <ImagePlus className='h-7 w-7' strokeWidth={1.5} />
+              {isReadingLogoImage
+                ? <LoaderCircle className='h-7 w-7 animate-spin' strokeWidth={1.5} />
+                : <ImagePlus className='h-7 w-7' strokeWidth={1.5} />}
               <span className='max-w-[85%] truncate text-base font-medium'>
-                Upload logo
+                {isReadingLogoImage ? 'Loading logo...' : 'Upload logo'}
               </span>
             </button>
           )}

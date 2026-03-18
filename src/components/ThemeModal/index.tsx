@@ -35,6 +35,9 @@ export function ThemeModal ({
   const [themeColors, setThemeColors] = useState<string[]>([])
   const [fontColor, setFontColor] = useState('#333333')
   const [backgroundColor, setBackgroundColor] = useState('#FFFFFF')
+  const [isApplyingTheme, setIsApplyingTheme] = useState(false)
+  const [isReadingBackgroundImage, setIsReadingBackgroundImage] = useState(false)
+  const [isReadingLogoImage, setIsReadingLogoImage] = useState(false)
   const [backgroundImage, setBackgroundImage] = useState<UploadedImage | null>(null)
   const [logoImage, setLogoImage] = useState<UploadedImage | null>(null)
   const [backgroundScope, setBackgroundScope] = useState<MediaScope>({
@@ -101,7 +104,9 @@ export function ThemeModal ({
     )
   }
 
-  function applyTheme (): void {
+  async function applyTheme (): Promise<void> {
+    if (isApplyingTheme) return
+
     const normalizedColors = themeColors
       .map(color => normalizeThemeColor(color))
       .filter((color): color is string => Boolean(color))
@@ -135,8 +140,20 @@ export function ThemeModal ({
       media.clearLogoImage = true
     }
 
-    onApply(normalizedColors, normalizedFontColor, normalizedBackgroundColor, media)
-    onClose()
+    setIsApplyingTheme(true)
+    try {
+      await onApply(
+        normalizedColors,
+        normalizedFontColor,
+        normalizedBackgroundColor,
+        media
+      )
+      setIsApplyingTheme(false)
+      onClose()
+    } catch (error) {
+      setIsApplyingTheme(false)
+      throw error
+    }
   }
 
   function applyThemePreset (preset: ThemePreset): void {
@@ -150,6 +167,7 @@ export function ThemeModal ({
   ): Promise<void> {
     const file = event.target.files?.[0]
     if (!file) return
+    const input = event.currentTarget
 
     const name = file.name.toLowerCase()
     const isImage = file.type === 'image/jpeg' || file.type === 'image/png'
@@ -158,25 +176,30 @@ export function ThemeModal ({
 
     if (!isImage && !hasAllowedExt) {
       alert('背景图仅支持 JPG / JPEG / PNG 格式。')
-      event.target.value = ''
+      input.value = ''
       return
     }
 
     if (file.size > MAX_BACKGROUND_IMAGE_SIZE) {
       alert('背景图大小不能超过 10MB。')
-      event.target.value = ''
+      input.value = ''
       return
     }
 
-    const src = URL.createObjectURL(file)
-    const dimensions = await getImageDimensions(src)
-    setBackgroundImage({
-      name: file.name,
-      src,
-      width: dimensions?.width,
-      height: dimensions?.height
-    })
-    event.target.value = ''
+    setIsReadingBackgroundImage(true)
+    try {
+      const src = URL.createObjectURL(file)
+      const dimensions = await getImageDimensions(src)
+      setBackgroundImage({
+        name: file.name,
+        src,
+        width: dimensions?.width,
+        height: dimensions?.height
+      })
+    } finally {
+      setIsReadingBackgroundImage(false)
+      input.value = ''
+    }
   }
 
   async function handleLogoFileChange (
@@ -184,31 +207,37 @@ export function ThemeModal ({
   ): Promise<void> {
     const file = event.target.files?.[0]
     if (!file) return
+    const input = event.currentTarget
 
     const name = file.name.toLowerCase()
     const isPng = file.type === 'image/png' || name.endsWith('.png')
     if (!isPng) {
       alert('LOGO 仅支持 PNG 格式。')
-      event.target.value = ''
+      input.value = ''
       return
     }
 
-    const src = URL.createObjectURL(file)
-    const dimensions = await getImageDimensions(src)
-    setLogoImage({
-      name: file.name,
-      src,
-      width: dimensions?.width,
-      height: dimensions?.height
-    })
-    event.target.value = ''
+    setIsReadingLogoImage(true)
+    try {
+      const src = URL.createObjectURL(file)
+      const dimensions = await getImageDimensions(src)
+      setLogoImage({
+        name: file.name,
+        src,
+        width: dimensions?.width,
+        height: dimensions?.height
+      })
+    } finally {
+      setIsReadingLogoImage(false)
+      input.value = ''
+    }
   }
 
   return (
     <div className='fixed inset-0 z-50 flex items-start justify-center overflow-y-auto px-3 py-3 sm:items-center sm:px-4 sm:py-4'>
       <div
         className='absolute inset-0 bg-ink-900/40 backdrop-blur-sm'
-        onClick={onClose}
+        onClick={isApplyingTheme ? undefined : onClose}
       />
       <div className='relative my-0 flex max-h-[calc(100dvh-1.5rem)] w-full max-w-[860px] flex-col overflow-hidden rounded-2xl border border-white/70 bg-white/95 shadow-2xl sm:my-4 sm:max-h-[90vh]'>
         <div className='sticky top-0 z-10 flex items-center justify-between border-b border-ink-100 bg-white/90 px-4 py-3 backdrop-blur sm:px-6 sm:py-4'>
@@ -221,6 +250,7 @@ export function ThemeModal ({
             className='rounded-full border border-ink-200 p-1.5 text-ink-600 transition hover:bg-ink-50 sm:p-2'
             onClick={onClose}
             type='button'
+            disabled={isApplyingTheme}
           >
             <X className='h-4 w-4' />
           </button>
@@ -236,6 +266,8 @@ export function ThemeModal ({
               backgroundScope={backgroundScope}
               logoScope={logoScope}
               logoPosition={logoPosition}
+              isReadingBackgroundImage={isReadingBackgroundImage}
+              isReadingLogoImage={isReadingLogoImage}
               onBackgroundFileChange={handleBackgroundFileChange}
               onLogoFileChange={handleLogoFileChange}
               onBackgroundImageRemove={() => {
@@ -291,10 +323,18 @@ export function ThemeModal ({
         </div>
 
         <div className='sticky bottom-0 z-10 flex flex-wrap items-center justify-end gap-2 border-t border-ink-100 bg-white/90 px-4 py-3 backdrop-blur sm:gap-3 sm:px-6 sm:py-4'>
-          <Button variant='ghost' onClick={onClose}>
+          <Button variant='ghost' onClick={onClose} disabled={isApplyingTheme}>
             Cancel
           </Button>
-          <Button onClick={applyTheme} disabled={Boolean(jsonError)}>
+          <Button
+            onClick={applyTheme}
+            loading={isApplyingTheme}
+            disabled={
+              Boolean(jsonError) ||
+              isReadingBackgroundImage ||
+              isReadingLogoImage
+            }
+          >
             Apply to JSON
           </Button>
         </div>

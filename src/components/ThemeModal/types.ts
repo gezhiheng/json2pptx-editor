@@ -54,5 +54,5 @@ export type ThemeModalProps = {
     fontColor: string,
     backgroundColor: string,
     media: ThemeMediaPayload
-  ) => void
+  ) => void | Promise<void>
 }

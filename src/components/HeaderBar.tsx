@@ -30,7 +30,7 @@ type HeaderBarProps = {
     fontColor: string,
     backgroundColor: string,
     media: ThemeMediaPayload
-  ) => void
+  ) => void | Promise<void>
 }
 
 type MediaCandidate = {
@@ -89,18 +89,22 @@ export function HeaderBar ({
     setIsThemeOpen(true)
   }
 
-  function applyTheme (
+  async function applyTheme (
     nextThemeColors: string[],
     nextFontColor: string,
     nextBackgroundColor: string,
     nextMedia: ThemeMediaPayload
-  ): void {
-    onApplyTheme(nextThemeColors, nextFontColor, nextBackgroundColor, nextMedia)
+  ): Promise<void> {
+    await onApplyTheme(
+      nextThemeColors,
+      nextFontColor,
+      nextBackgroundColor,
+      nextMedia
+    )
     const syncedMedia: ThemeMediaPayload = {}
     if (nextMedia.backgroundImage) syncedMedia.backgroundImage = nextMedia.backgroundImage
     if (nextMedia.logoImage) syncedMedia.logoImage = nextMedia.logoImage
     setMedia(syncedMedia)
-    setIsThemeOpen(false)
   }
 
   return (
