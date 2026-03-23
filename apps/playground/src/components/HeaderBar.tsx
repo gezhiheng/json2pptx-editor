@@ -161,7 +161,7 @@ export function HeaderBar ({
             <RotateCcw className='h-4 w-4' />
           </Button>
           <a
-            href='https://github.com/gezhiheng/json2ppt-editor'
+            href='https://github.com/gezhiheng/pipto'
             target='_blank'
             rel='noopener noreferrer'
             title='Open project repository on GitHub'

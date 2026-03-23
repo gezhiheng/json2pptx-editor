@@ -5,7 +5,7 @@
   "homepage": "https://json2pptx.henryge.com/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gezhiheng/json2pptx-editor.git",
+    "url": "git+https://github.com/gezhiheng/pipto.git",
     "directory": "packages/json2pptx"
   },
   "license": "MIT",

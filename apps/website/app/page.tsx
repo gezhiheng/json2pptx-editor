@@ -234,7 +234,7 @@ export default function HomePage () {
             </a>
             <a
               className={styles.secondaryCta}
-              href="https://github.com/gezhiheng/json2pptx-editor"
+              href="https://github.com/gezhiheng/pipto"
               target="_blank"
               rel="noreferrer"
             >
