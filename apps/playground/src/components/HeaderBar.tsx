@@ -112,7 +112,7 @@ export function HeaderBar ({
       <header className='flex flex-col gap-4 rounded-xl border border-white/70 bg-white/70 p-4 shadow-soft backdrop-blur sm:p-5 lg:flex-row lg:items-start lg:justify-between lg:p-6'>
         <div className='flex flex-col gap-2'>
           <h1 className='font-display text-2xl leading-tight text-ink-900 sm:text-3xl lg:text-4xl'>
-            Live JSON <span className='text-ember-500'>to</span> PPTX editor
+            Pipto <span className='text-ember-500'>Playground</span>
           </h1>
         </div>
         <div className='flex w-full flex-wrap items-center gap-2 sm:gap-3 lg:w-auto lg:justify-end'>

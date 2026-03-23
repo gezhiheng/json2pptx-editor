@@ -1,20 +1,41 @@
-# JSON2PPT Editor
+# Pipto
 
 [中文](./README.zh-CN.md)
 
 ## Introduction
 
-JSON2PPT Editor is a local-first slide editing app for JSON-based decks.  
-You can pick a template, edit slide JSON with Monaco, preview changes instantly, apply custom content/theme transforms, and export to PPTX.
+Pipto is a JSON-native presentation workspace for JSON to PPTX, PPTX to JSON, authoring, transforming, previewing, importing, and exporting slide decks.
+It is designed for teams that want to generate PowerPoint files from structured JSON, inspect existing PPTX files as data, and keep presentation workflows inside versioned code.
+It combines a SEO-friendly website, an interactive playground, and a set of publishable packages that turn presentation workflows into reusable engineering assets.
 
-A single-page app that turns JSON slide data into a live preview and exports PPTX files with PptxGenJS. It ships with a Monaco-based JSON editor, real-time slide preview, and a template selector that reads JSON files from `apps/playground/template`.
+At runtime, the repo is split into two apps:
+
+- `apps/website` for the public-facing brand and landing pages
+- `apps/playground` for the editor, live preview, template exploration, and PPTX round-trip workflow
+
+Underneath those apps, `packages/*` provides the reusable core:
+
+- `json2pptx-schema` for migration, validation, and normalization
+- `json2pptx` for PPTX generation
+- `ppt2json` for PPTX parsing
+- `pptx-previewer` for browser rendering
+- `pptx-custom` for theme and custom-content transforms
+
+## Project Description
+
+Pipto is a JSON-native presentation platform that separates brand website, playground, and reusable document-processing packages into one workspace. It helps teams define deck content as structured data, preview it in the browser, transform templates systematically, and round-trip between JSON and PPTX without locking the workflow into manual slide editing. If you are looking for open source tooling around `json2pptx`, `json to pptx`, `json to ppt`, `pptx to json`, or `ppt to json`, this repository is the main workspace behind those apps and packages.
+
+## Search Keywords
+
+Common ways people discover this project include `json to pptx`, `json2pptx`, `json to ppt`, `pptx to json`, `ppt to json`, and `JSON to PowerPoint`.
 
 ## Features
 
 - Inspired by [PPTist](https://github.com/pipipi-pikachu/PPTist)
-- Live JSON editing with Monaco Editor and folding
+- Marketing website for product positioning and SEO
+- Live JSON editing for PowerPoint deck authoring with Monaco Editor and folding
 - Real-time slide preview
-- Export PPTX via PptxGenJS
+- Export JSON to PPTX / PowerPoint via PptxGenJS
 - Import PPTX back into editable JSON with PPT-native visual mapping
 - Export current JSON to file
 - Template selector powered by `apps/playground/template/*.json`
@@ -40,6 +61,7 @@ A single-page app that turns JSON slide data into a live preview and exports PPT
 
 ## Project Structure
 
+- `apps/website/` public-facing website
 - `apps/playground/` editor application source and templates
 - `packages/` publishable npm packages and supporting tests
 

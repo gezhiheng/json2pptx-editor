@@ -1,14 +1,23 @@
 :root {
   color-scheme: light;
-  --bg: #f4eee5;
-  --panel: rgba(255, 251, 245, 0.8);
-  --paper: #fffaf4;
-  --ink: #1b2731;
-  --muted: rgba(27, 39, 49, 0.62);
-  --muted-strong: rgba(27, 39, 49, 0.82);
-  --line: rgba(27, 39, 49, 0.12);
-  --signal: #9e2a2b;
-  --teal: #287271;
+  --ink-50: #f5f3f0;
+  --ink-100: #ebe5dc;
+  --ink-200: #d9d2c7;
+  --ink-300: #c5bbaf;
+  --ink-500: #8b7f73;
+  --ink-700: #4f463f;
+  --ink-800: #352f2a;
+  --ink-900: #1f1b16;
+  --ember-400: #e06c61;
+  --ember-500: #d75346;
+  --ember-700: #a83a2f;
+  --slateblue-400: #6070cf;
+  --slateblue-500: #3d4db3;
+  --paper: rgba(255, 255, 255, 0.72);
+  --paper-strong: rgba(255, 255, 255, 0.88);
+  --line: rgba(255, 255, 255, 0.7);
+  --shadow-soft: 0 20px 60px -40px rgba(0, 0, 0, 0.35);
+  --shadow-sharp: 0 12px 28px -12px rgba(0, 0, 0, 0.45);
 }
 
 * {
@@ -17,17 +26,20 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 14px;
 }
 
 body {
   margin: 0;
   min-width: 320px;
-  background:
-    radial-gradient(circle at top left, rgba(158, 42, 43, 0.16), transparent 34%),
-    radial-gradient(circle at 85% 12%, rgba(40, 114, 113, 0.16), transparent 30%),
-    linear-gradient(180deg, #f7f1e8 0%, var(--bg) 42%, #efe4d5 100%);
-  color: var(--ink);
+  min-height: 100vh;
+  color: var(--ink-900);
   font-family: var(--font-body), sans-serif;
+  background-color: #f4f0ea;
+  background-image:
+    radial-gradient(circle at top left, rgba(242, 92, 84, 0.18), transparent 45%),
+    radial-gradient(circle at 20% 85%, rgba(61, 77, 179, 0.15), transparent 40%),
+    linear-gradient(130deg, rgba(255, 255, 255, 0.7), rgba(243, 239, 232, 0.8));
 }
 
 body::before {
@@ -35,16 +47,10 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.16)),
-    repeating-linear-gradient(
-      90deg,
-      transparent 0,
-      transparent 79px,
-      rgba(27, 39, 49, 0.05) 79px,
-      rgba(27, 39, 49, 0.05) 80px
-    );
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 85%);
+  opacity: 0.12;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='rgba(0,0,0,0.35)' stroke-width='1'%3E%3Cpath d='M0 0h120v120H0z'/%3E%3Cpath d='M60 0v120M0 60h120'/%3E%3C/g%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
 }
 
 a {
@@ -58,7 +64,14 @@ svg {
   max-width: 100%;
 }
 
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
 ::selection {
-  background: rgba(158, 42, 43, 0.18);
-  color: var(--ink);
+  background: rgba(215, 83, 70, 0.18);
+  color: var(--ink-900);
 }

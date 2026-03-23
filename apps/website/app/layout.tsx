@@ -1,18 +1,24 @@
 import type { Metadata } from 'next'
-import { Cormorant_Garamond, Noto_Sans_SC } from 'next/font/google'
+import { JetBrains_Mono, Noto_Sans_SC, Unbounded } from 'next/font/google'
 import type { ReactNode } from 'react'
 import './globals.css'
 
-const display = Cormorant_Garamond({
+const brand = Unbounded({
   subsets: ['latin'],
-  variable: '--font-display',
-  weight: ['500', '600', '700']
+  variable: '--font-brand',
+  weight: ['600', '700', '800']
 })
 
 const body = Noto_Sans_SC({
   subsets: ['latin'],
   variable: '--font-body',
-  weight: ['400', '500', '700']
+  weight: ['400', '500', '700', '900']
+})
+
+const mono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  weight: ['500', '700']
 })
 
 export const metadata: Metadata = {
@@ -57,7 +63,7 @@ export default function RootLayout ({
   children: ReactNode
 }>) {
   return (
-    <html lang="zh-CN" className={`${display.variable} ${body.variable}`}>
+    <html lang="zh-CN" className={`${brand.variable} ${body.variable} ${mono.variable}`}>
       <body>{children}</body>
     </html>
   )

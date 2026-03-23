@@ -1,17 +1,33 @@
-# JSON2PPT Editor
+# Pipto
 
 [English](./README.md)
 
 ## 项目简介
 
-JSON2PPT Editor 是一个本地优先的 JSON 幻灯片编辑应用。  
-你可以选择模板、用 Monaco 编辑 JSON、实时预览、应用自定义内容/主题，并导出 PPTX。
+Pipto 是一个以 JSON 为核心的演示文稿工作区，用来完成幻灯片的编写、转换、预览、导入和导出。  
+它把面向 SEO 的 website、交互式 playground，以及一组可发布的底层包组织到同一个 workspace 中，让演示文稿流程变成可复用的工程资产。
 
-一个单页应用，用于将 JSON 幻灯片数据转换为实时预览，并通过 PptxGenJS 导出 PPTX 文件。它内置基于 Monaco 的 JSON 编辑器、实时幻灯片预览，以及从 `apps/playground/template` 读取 JSON 文件的模板选择器。
+在运行时，仓库分成两个应用层：
+
+- `apps/website`：面向品牌展示、介绍页和 SEO
+- `apps/playground`：面向编辑、预览、模板实验和 PPTX round-trip
+
+底层能力由 `packages/*` 提供：
+
+- `json2pptx-schema`：负责迁移、校验和 normalize
+- `json2pptx`：负责导出 PPTX
+- `ppt2json`：负责解析 PPTX
+- `pptx-previewer`：负责浏览器预览
+- `pptx-custom`：负责主题替换与自定义内容转换
+
+## 项目描述
+
+Pipto 是一个 JSON-native 的演示文稿平台，将品牌官网、交互式 playground 和可复用的文档处理包统一在一个 workspace 中。它帮助团队把 deck 内容定义为结构化数据，在浏览器中预览，用统一规则批量改造模板，并在 JSON 与 PPTX 之间完成可维护的双向工作流，而不是把整个流程锁死在手工排版里。
 
 ## 功能特性
 
 - 灵感来源于 [PPTist](https://github.com/pipipi-pikachu/PPTist)
+- 用于产品介绍和 SEO 的 website
 - 基于 Monaco Editor 的实时 JSON 编辑与代码折叠
 - 实时幻灯片预览
 - 通过 PptxGenJS 导出 PPTX
@@ -40,6 +56,7 @@ JSON2PPT Editor 是一个本地优先的 JSON 幻灯片编辑应用。
 
 ## 项目结构
 
+- `apps/website/`：对外网站
 - `apps/playground/`：editor 应用源码与模板
 - `packages/`：可发布 npm 包及其相关测试
 
