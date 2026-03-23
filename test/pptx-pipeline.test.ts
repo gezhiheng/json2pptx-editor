@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { validateDocument } from 'json2pptx-schema'
-import { createPPTX } from '../src/lib/json2pptx/src/index'
-import { parsePptxToJson } from '../src/lib/pptx2json/index'
-import type { PresentationData, SlideElement } from '../src/types/ppt'
+import { createPPTX } from 'json2pptx'
+import { parsePptxToJson } from 'ppt2json'
+import type { PresentationData, SlideElement } from '../apps/playground/src/types/ppt'
 
 const PPTX_MIME_TYPE =
   'application/vnd.openxmlformats-officedocument.presentationml.presentation'

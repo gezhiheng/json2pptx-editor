@@ -7,7 +7,7 @@
 JSON2PPT Editor 是一个本地优先的 JSON 幻灯片编辑应用。  
 你可以选择模板、用 Monaco 编辑 JSON、实时预览、应用自定义内容/主题，并导出 PPTX。
 
-一个单页应用，用于将 JSON 幻灯片数据转换为实时预览，并通过 PptxGenJS 导出 PPTX 文件。它内置基于 Monaco 的 JSON 编辑器、实时幻灯片预览，以及从 `/template` 读取 JSON 文件的模板选择器。
+一个单页应用，用于将 JSON 幻灯片数据转换为实时预览，并通过 PptxGenJS 导出 PPTX 文件。它内置基于 Monaco 的 JSON 编辑器、实时幻灯片预览，以及从 `apps/playground/template` 读取 JSON 文件的模板选择器。
 
 ## 功能特性
 
@@ -17,7 +17,7 @@ JSON2PPT Editor 是一个本地优先的 JSON 幻灯片编辑应用。
 - 通过 PptxGenJS 导出 PPTX
 - 支持将 PPTX 导入回可编辑 JSON（基于 PPT 原生 XML 的视觉映射）
 - 导出当前 JSON 为文件
-- 基于 `/template/*.json` 的模板选择器
+- 基于 `apps/playground/template/*.json` 的模板选择器
 
 ## 技术栈
 
@@ -40,10 +40,8 @@ JSON2PPT Editor 是一个本地优先的 JSON 幻灯片编辑应用。
 
 ## 项目结构
 
-- `template/`：模板选择器加载的 JSON 模板
-- `src/components/`：UI 与布局组件
-- `src/lib/`：工具库（PPTX 生成、模板相关）
-- `src/types/`：共享类型
+- `apps/playground/`：editor 应用源码与模板
+- `packages/`：可发布 npm 包及其相关测试
 
 ## 快速开始
 
@@ -92,7 +90,7 @@ pnpm build:pptx-custom
 
 ### 选择模板
 
-将 JSON 模板放入 `template/`（例如 `template/template_2.json`）。重启开发服务器后可刷新模板列表。  
+将 JSON 模板放入 `apps/playground/template/`（例如 `apps/playground/template/template_2.json`）。重启开发服务器后可刷新模板列表。  
 本仓库模板来源于 [PPTist](https://github.com/pipipi-pikachu/PPTist)。
 
 ### 导出 / 导入

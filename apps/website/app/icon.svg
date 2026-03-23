@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="pipto-gradient" x1="12" x2="84" y1="10" y2="86" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9e2a2b" />
+      <stop offset="1" stop-color="#287271" />
+    </linearGradient>
+  </defs>
+  <rect width="96" height="96" rx="28" fill="#1b2731" />
+  <path
+    fill="url(#pipto-gradient)"
+    d="M28 22h24c13.255 0 24 10.745 24 24s-10.745 24-24 24H42v12H28V22Zm14 14v20h10c5.523 0 10-4.477 10-10S57.523 36 52 36H42Z"
+  />
+</svg>

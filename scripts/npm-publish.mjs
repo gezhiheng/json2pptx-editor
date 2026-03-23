@@ -14,11 +14,11 @@ if (!VALID_MODES.has(mode)) {
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const rootDir = path.resolve(__dirname, '..')
 const packageDirs = [
-  'src/lib/json2pptx-schema',
-  'src/lib/json2pptx',
-  'src/lib/pptx-custom',
-  'src/lib/pptx-previewer',
-  'src/lib/pptx2json'
+  'packages/json2pptx-schema',
+  'packages/json2pptx',
+  'packages/pptx-custom',
+  'packages/pptx-previewer',
+  'packages/pptx2json'
 ]
 const dependencySections = ['dependencies', 'optionalDependencies', 'peerDependencies']
 const semverPattern = /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/

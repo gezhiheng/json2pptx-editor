@@ -13,6 +13,6 @@
     "jsx": "react-jsx",
     "strict": true
   },
-  "include": ["apps/playground/src", "test"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

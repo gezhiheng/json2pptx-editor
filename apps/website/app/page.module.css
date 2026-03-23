@@ -1,0 +1,463 @@
+.page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.shell {
+  width: min(1180px, calc(100vw - 48px));
+  margin: 0 auto;
+  padding: 28px 0 72px;
+}
+
+.header {
+  position: sticky;
+  top: 18px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(248, 242, 233, 0.78);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 14px 40px rgba(36, 26, 18, 0.08);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.brandMark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--signal), var(--teal));
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.brandWord {
+  font-size: 0.88rem;
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.nav a {
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.nav a:hover {
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  gap: 28px;
+  padding: 56px 0 40px;
+  align-items: stretch;
+}
+
+.heroCopy,
+.signalPanel,
+.packageCard,
+.workflowCard,
+.principleCard,
+.footerCta {
+  position: relative;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 20px 60px rgba(36, 26, 18, 0.08);
+}
+
+.heroCopy {
+  border-radius: 36px;
+  padding: 38px;
+}
+
+.kicker,
+.sectionEyebrow,
+.panelEyebrow,
+.footerEyebrow,
+.packageRole,
+.principleLabel {
+  margin: 0;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+.title,
+.sectionTitle,
+.footerTitle,
+.panelTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 0.96;
+  color: var(--ink);
+}
+
+.title {
+  margin-top: 22px;
+  font-size: clamp(3.5rem, 8vw, 6.6rem);
+  max-width: 9ch;
+}
+
+.title span {
+  color: var(--signal);
+}
+
+.lead,
+.sectionLead,
+.packageBody,
+.workflowBody,
+.principleBody,
+.pulseNote {
+  margin: 0;
+  color: var(--muted-strong);
+  line-height: 1.75;
+  font-size: 1rem;
+}
+
+.lead {
+  margin-top: 24px;
+  max-width: 60ch;
+}
+
+.ctaRow,
+.footerActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.primaryCta,
+.secondaryCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 20px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-weight: 700;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.primaryCta {
+  background: linear-gradient(135deg, var(--signal), #b85a40);
+  color: var(--paper);
+  box-shadow: 0 18px 40px rgba(158, 42, 43, 0.24);
+}
+
+.secondaryCta {
+  border-color: rgba(27, 39, 49, 0.16);
+  background: rgba(255, 255, 255, 0.58);
+  color: var(--ink);
+}
+
+.primaryCta:hover,
+.secondaryCta:hover {
+  transform: translateY(-2px);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 34px 0 0;
+}
+
+.metrics div {
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.metrics dt {
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.metrics dd {
+  margin: 8px 0 0;
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: var(--ink);
+}
+
+.signalPanel {
+  border-radius: 32px;
+  padding: 28px;
+  overflow: hidden;
+}
+
+.signalPanel::before {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(27, 39, 49, 0.08);
+  border-radius: 24px;
+  pointer-events: none;
+}
+
+.panelHeader {
+  position: relative;
+  z-index: 1;
+}
+
+.panelTitle {
+  margin-top: 16px;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+}
+
+.stackList {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.stackItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.52);
+  border: 1px solid rgba(27, 39, 49, 0.08);
+}
+
+.stackIndex {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(27, 39, 49, 0.08);
+  color: var(--ink);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.pulseCard {
+  margin-top: 24px;
+  padding: 20px;
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(158, 42, 43, 0.1), rgba(40, 114, 113, 0.12)),
+    rgba(255, 250, 244, 0.76);
+  border: 1px solid rgba(158, 42, 43, 0.12);
+}
+
+.pulseLabel {
+  margin: 0;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.72rem;
+}
+
+.pulseValue {
+  margin: 12px 0 10px;
+  font-size: clamp(1.5rem, 3vw, 2.35rem);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.section {
+  padding-top: 42px;
+}
+
+.sectionIntro {
+  max-width: 780px;
+}
+
+.sectionTitle {
+  margin-top: 14px;
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+}
+
+.sectionLead {
+  margin-top: 16px;
+}
+
+.packageGrid,
+.workflowGrid,
+.principlesGrid {
+  display: grid;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.packageGrid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.packageCard,
+.workflowCard,
+.principleCard {
+  border-radius: 28px;
+  padding: 24px;
+}
+
+.packageCard[data-tone='signal'] {
+  background: linear-gradient(180deg, rgba(158, 42, 43, 0.14), rgba(255, 250, 244, 0.88));
+}
+
+.packageCard[data-tone='rust'] {
+  background: linear-gradient(180deg, rgba(184, 90, 64, 0.14), rgba(255, 250, 244, 0.88));
+}
+
+.packageCard[data-tone='teal'] {
+  background: linear-gradient(180deg, rgba(40, 114, 113, 0.14), rgba(255, 250, 244, 0.88));
+}
+
+.packageCard[data-tone='ink'] {
+  background: linear-gradient(180deg, rgba(27, 39, 49, 0.1), rgba(255, 250, 244, 0.88));
+}
+
+.packageName,
+.workflowTitle,
+.principleTitle {
+  margin: 14px 0 0;
+  font-size: 1.36rem;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.packageBody,
+.workflowBody,
+.principleBody {
+  margin-top: 12px;
+}
+
+.workflowGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.workflowStep {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--signal);
+}
+
+.principlesGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.footerCta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 22px;
+  margin-top: 54px;
+  border-radius: 36px;
+  padding: 30px;
+}
+
+.footerTitle {
+  margin-top: 14px;
+  max-width: 14ch;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+}
+
+@media (max-width: 1120px) {
+  .packageGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .shell {
+    width: min(100vw - 28px, 1180px);
+    padding-top: 16px;
+  }
+
+  .header,
+  .hero,
+  .footerCta {
+    border-radius: 28px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .workflowGrid,
+  .principlesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .footerCta {
+    flex-direction: column;
+    align-items: start;
+  }
+}
+
+@media (max-width: 720px) {
+  .header {
+    align-items: start;
+    flex-direction: column;
+    border-radius: 24px;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .heroCopy,
+  .signalPanel,
+  .packageCard,
+  .workflowCard,
+  .principleCard,
+  .footerCta {
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .metrics,
+  .packageGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: clamp(2.7rem, 15vw, 4rem);
+  }
+
+  .sectionTitle,
+  .panelTitle,
+  .footerTitle {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+}

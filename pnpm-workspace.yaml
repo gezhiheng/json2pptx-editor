@@ -1,6 +1,8 @@
 packages:
-  - 'src/lib/json2pptx-schema'
-  - 'src/lib/json2pptx'
-  - 'src/lib/pptx2json'
-  - 'src/lib/pptx-previewer'
-  - 'src/lib/pptx-custom'
+  - 'apps/playground'
+  - 'apps/website'
+  - 'packages/json2pptx-schema'
+  - 'packages/json2pptx'
+  - 'packages/pptx2json'
+  - 'packages/pptx-previewer'
+  - 'packages/pptx-custom'

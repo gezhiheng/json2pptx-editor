@@ -1,0 +1,58 @@
+{
+  "name": "ppt2json",
+  "version": "0.3.4",
+  "description": "Convert PPTX files to json2pptx-compatible JSON.",
+  "license": "MIT",
+  "homepage": "https://json2pptx.henryge.com/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gezhiheng/json2pptx-editor.git",
+    "directory": "packages/pptx2json"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev:watch": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "json2pptx-schema": "0.2.3",
+    "jszip": "^3.10.1",
+    "tinycolor2": "^1.6.0",
+    "txml": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.0"
+  }
+}

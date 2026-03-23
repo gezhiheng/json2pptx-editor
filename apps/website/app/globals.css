@@ -1,0 +1,64 @@
+:root {
+  color-scheme: light;
+  --bg: #f4eee5;
+  --panel: rgba(255, 251, 245, 0.8);
+  --paper: #fffaf4;
+  --ink: #1b2731;
+  --muted: rgba(27, 39, 49, 0.62);
+  --muted-strong: rgba(27, 39, 49, 0.82);
+  --line: rgba(27, 39, 49, 0.12);
+  --signal: #9e2a2b;
+  --teal: #287271;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at top left, rgba(158, 42, 43, 0.16), transparent 34%),
+    radial-gradient(circle at 85% 12%, rgba(40, 114, 113, 0.16), transparent 30%),
+    linear-gradient(180deg, #f7f1e8 0%, var(--bg) 42%, #efe4d5 100%);
+  color: var(--ink);
+  font-family: var(--font-body), sans-serif;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.16)),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 79px,
+      rgba(27, 39, 49, 0.05) 79px,
+      rgba(27, 39, 49, 0.05) 80px
+    );
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 85%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: rgba(158, 42, 43, 0.18);
+  color: var(--ink);
+}

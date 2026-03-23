@@ -24,13 +24,23 @@ type WorkspacePackage = {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const rootDir = path.resolve(__dirname, '..')
-const libDir = path.join(rootDir, 'src/lib')
+const libDir = path.join(rootDir, 'packages')
 const dependencySections = [
   'dependencies',
   'optionalDependencies',
   'peerDependencies'
 ] as const
 const packageInstallTimeout = 300_000
+const PPTX_MIME_TYPE =
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+const pptxFixturePath = path.join(
+  rootDir,
+  'packages',
+  'pptx2json',
+  'test',
+  'assets',
+  'template_1.pptx'
+)
 
 const workspacePackages = loadWorkspacePackages()
 const packageMap = new Map(workspacePackages.map((pkg) => [pkg.name, pkg]))
@@ -83,6 +93,7 @@ describe.sequential('npm package install smoke tests', () => {
       )
 
       const installTarballs = collectInstallTarballs(pkg)
+      const extraInstallPackages = getExtraInstallPackages(pkg)
 
       runCommand(
         'npm',
@@ -91,7 +102,8 @@ describe.sequential('npm package install smoke tests', () => {
           '--no-audit',
           '--no-fund',
           '--package-lock=false',
-          ...installTarballs
+          ...installTarballs,
+          ...extraInstallPackages
         ],
         installProjectDir
       )
@@ -105,6 +117,10 @@ describe.sequential('npm package install smoke tests', () => {
 
       expect(installedManifest.name).toBe(pkg.name)
       expect(installedManifest.version).toBe(pkg.version)
+
+      const smokeScriptPath = path.join(installProjectDir, 'smoke.mjs')
+      await writeFile(smokeScriptPath, buildImportSmokeScript(pkg))
+      runCommand('node', [smokeScriptPath], installProjectDir)
     }, packageInstallTimeout)
   }
 })
@@ -170,6 +186,139 @@ function collectInstallTarballs (pkg: WorkspacePackage): string[] {
 
 function getTarballFileName (pkg: WorkspacePackage): string {
   return `${sanitizePackageName(pkg.name)}-${pkg.version}.tgz`
+}
+
+function getExtraInstallPackages (pkg: WorkspacePackage): string[] {
+  switch (pkg.name) {
+    case 'pptx-previewer':
+      return ['react@19.2.4', 'react-dom@19.2.4']
+    default:
+      return []
+  }
+}
+
+function buildImportSmokeScript (pkg: WorkspacePackage): string {
+  switch (pkg.name) {
+    case 'json2pptx-schema':
+      return `
+import assert from 'node:assert/strict'
+import { parseDocument, validateDocument, DEFAULT_SCHEMA_VERSION } from 'json2pptx-schema'
+
+const parsed = parseDocument({
+  title: 'Schema Smoke',
+  theme: {},
+  slides: [{ elements: [] }]
+})
+
+validateDocument(parsed)
+assert.equal(parsed.schemaVersion, DEFAULT_SCHEMA_VERSION)
+assert.equal(parsed.slides.length, 1)
+`
+
+    case 'json2pptx':
+      return `
+import assert from 'node:assert/strict'
+import { createPPTX } from 'json2pptx'
+
+const { blob, fileName } = await createPPTX({
+  title: 'Install Smoke',
+  theme: {},
+  slides: [{ elements: [] }]
+})
+
+assert.ok(blob instanceof Blob)
+assert.ok(blob.size > 0)
+assert.equal(fileName, 'Install Smoke.pptx')
+`
+
+    case 'ppt2json':
+      return `
+import assert from 'node:assert/strict'
+import { File } from 'node:buffer'
+import { readFile } from 'node:fs/promises'
+import { parsePptxToJson } from 'ppt2json'
+
+const fixture = await readFile(${JSON.stringify(pptxFixturePath)})
+const file = new File([fixture], 'template_1.pptx', { type: ${JSON.stringify(PPTX_MIME_TYPE)} })
+const { presentation, warnings } = await parsePptxToJson(file)
+
+assert.deepEqual(warnings, [])
+assert.ok((presentation.slides?.length ?? 0) > 0)
+`
+
+    case 'pptx-custom':
+      return `
+import assert from 'node:assert/strict'
+import { applyCustomTheme, parseCustomContent } from 'pptx-custom'
+
+const slides = parseCustomContent(JSON.stringify([
+  { type: 'cover', data: { title: 'Smoke', text: 'Install test' } },
+  { type: 'end' }
+]))
+const themed = applyCustomTheme(
+  {
+    title: 'Custom Smoke',
+    theme: {
+      themeColors: ['#111111'],
+      fontColor: '#000000'
+    },
+    slides: [
+      {
+        elements: [
+          {
+            type: 'text',
+            left: 0,
+            top: 0,
+            width: 320,
+            height: 40,
+            content: '<p>Hello</p>',
+            defaultColor: '#000000'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    themeColors: ['#222222'],
+    fontColor: '#123456'
+  }
+)
+
+assert.equal(slides.length, 2)
+assert.equal(themed.theme?.fontColor, '#123456')
+assert.equal(themed.slides?.length, 1)
+`
+
+    case 'pptx-previewer':
+      return `
+import assert from 'node:assert/strict'
+import React from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
+import { PPTXPreviewer } from 'pptx-previewer'
+
+const markup = renderToStaticMarkup(
+  React.createElement(PPTXPreviewer, {
+    slide: {
+      elements: [
+        {
+          type: 'text',
+          left: 0,
+          top: 0,
+          width: 320,
+          height: 40,
+          content: '<p>Hello smoke</p>'
+        }
+      ]
+    }
+  })
+)
+
+assert.ok(markup.includes('Hello smoke'))
+`
+
+    default:
+      throw new Error(`No import smoke script configured for ${pkg.name}`)
+  }
 }
 
 function sanitizePackageName (name: string): string {

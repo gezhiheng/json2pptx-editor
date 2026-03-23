@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { createPPTX } from '../src/lib/json2pptx/src/index'
-import { preparePreviewSlide } from '../src/lib/pptx-previewer/src/PPTXPreviewer'
-import { applyCustomTheme } from '../src/lib/pptx-custom/src/custom-theme/index'
+import { createPPTX } from 'json2pptx'
+import { applyCustomTheme } from 'pptx-custom'
+import { preparePreviewSlide } from '../packages/pptx-previewer/src/PPTXPreviewer'
 
 describe('schema integration', () => {
   it('json2pptx.createPPTX validates input via parse pipeline', async () => {

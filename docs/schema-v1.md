@@ -1,17 +1,17 @@
 # Schema V1 (`json2pptx-schema`)
 
-## 1) Derivation from `/template`
+## 1) Derivation from `apps/playground/template`
 
 V1 is derived from the real JSON fixtures in:
 
-- `/Users/henry/codebase/personal/json2ppt-editor/template/template_1.json`
-- `/Users/henry/codebase/personal/json2ppt-editor/template/template_2.json`
-- `/Users/henry/codebase/personal/json2ppt-editor/template/template_3.json`
-- `/Users/henry/codebase/personal/json2ppt-editor/template/template_4.json`
-- `/Users/henry/codebase/personal/json2ppt-editor/template/template_5.json`
-- `/Users/henry/codebase/personal/json2ppt-editor/template/template_6.json`
-- `/Users/henry/codebase/personal/json2ppt-editor/template/template_7.json`
-- `/Users/henry/codebase/personal/json2ppt-editor/template/template_8.json`
+- `/Users/henry/codebase/personal/json2ppt-editor/apps/playground/template/template_1.json`
+- `/Users/henry/codebase/personal/json2ppt-editor/apps/playground/template/template_2.json`
+- `/Users/henry/codebase/personal/json2ppt-editor/apps/playground/template/template_3.json`
+- `/Users/henry/codebase/personal/json2ppt-editor/apps/playground/template/template_4.json`
+- `/Users/henry/codebase/personal/json2ppt-editor/apps/playground/template/template_5.json`
+- `/Users/henry/codebase/personal/json2ppt-editor/apps/playground/template/template_6.json`
+- `/Users/henry/codebase/personal/json2ppt-editor/apps/playground/template/template_7.json`
+- `/Users/henry/codebase/personal/json2ppt-editor/apps/playground/template/template_8.json`
 
 Observed core shape in samples:
 
@@ -100,12 +100,10 @@ Integrated paths:
 - `pptx-previewer` parses before preview rendering (fail-open fallback)
 - `pptx-custom` parses before and after content/theme transformations
 
-## 6) Future extraction plan (`packages/json2pptx-schema`)
+## 6) Workspace layout (`packages/json2pptx-schema`)
 
-To extract with minimal import churn:
+Current layout:
 
-1. Move `src/lib/json2pptx-schema` into `packages/json2pptx-schema/src`.
-2. Keep public exports stable (`index.ts` contract unchanged).
-3. Publish as `json2pptx-schema` package.
-4. Replace current alias mapping with workspace package dependency.
-5. Keep current import statements unchanged in internal libs.
+1. The package lives in `packages/json2pptx-schema`.
+2. Public exports remain stable through `index.ts`.
+3. Internal consumers should import `json2pptx-schema` or use an explicit dev alias to this package.

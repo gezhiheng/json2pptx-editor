@@ -1,15 +1,20 @@
-FROM node:20-alpine
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
 RUN corepack enable
 
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
-
 COPY . .
+RUN pnpm install --frozen-lockfile
 RUN pnpm build
 
-EXPOSE 3010
+FROM nginx:1.27-alpine
 
-CMD ["pnpm", "preview", "--host", "0.0.0.0", "--port", "3010"]
+COPY deploy/nginx/container.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/apps/website/out /usr/share/nginx/html
+COPY --from=builder /app/apps/playground/dist /usr/share/nginx/html/playground
+
+EXPOSE 80
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget -qO- http://127.0.0.1/healthz >/dev/null || exit 1

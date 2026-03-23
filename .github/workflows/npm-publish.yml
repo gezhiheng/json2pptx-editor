@@ -3,6 +3,13 @@ name: Publish npm packages
 on:
   push:
     branches: [main]
+    paths:
+      - 'packages/**'
+      - 'scripts/npm-publish.mjs'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/npm-publish.yml'
   workflow_dispatch:
 
 permissions:

@@ -7,7 +7,7 @@
 JSON2PPT Editor is a local-first slide editing app for JSON-based decks.  
 You can pick a template, edit slide JSON with Monaco, preview changes instantly, apply custom content/theme transforms, and export to PPTX.
 
-A single-page app that turns JSON slide data into a live preview and exports PPTX files with PptxGenJS. It ships with a Monaco-based JSON editor, real-time slide preview, and a template selector that reads JSON files from `/template`.
+A single-page app that turns JSON slide data into a live preview and exports PPTX files with PptxGenJS. It ships with a Monaco-based JSON editor, real-time slide preview, and a template selector that reads JSON files from `apps/playground/template`.
 
 ## Features
 
@@ -17,7 +17,7 @@ A single-page app that turns JSON slide data into a live preview and exports PPT
 - Export PPTX via PptxGenJS
 - Import PPTX back into editable JSON with PPT-native visual mapping
 - Export current JSON to file
-- Template selector powered by `/template/*.json`
+- Template selector powered by `apps/playground/template/*.json`
 
 ## Tech Stack
 
@@ -40,10 +40,8 @@ A single-page app that turns JSON slide data into a live preview and exports PPT
 
 ## Project Structure
 
-- `template/` JSON templates loaded into the selector
-- `src/components/` UI and layout components
-- `src/lib/` utilities (PPTX generation, templates)
-- `src/types/` shared types
+- `apps/playground/` editor application source and templates
+- `packages/` publishable npm packages and supporting tests
 
 ## Getting Started
 
@@ -92,7 +90,7 @@ pnpm build:pptx-custom
 
 ### Choose a template
 
-Add JSON templates to `template/` (e.g. `template/template_2.json`). Restart the dev server to refresh the template list.
+Add JSON templates to `apps/playground/template/` (e.g. `apps/playground/template/template_2.json`). Restart the dev server to refresh the template list.
 Templates in this repo are sourced from [PPTist](https://github.com/pipipi-pikachu/PPTist).
 
 ### Export / Import
