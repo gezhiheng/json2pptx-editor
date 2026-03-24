@@ -1,8 +1,8 @@
 {
   "name": "json2pptx",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "Convert JSON slide definitions to PPTX using PptxGenJS.",
-  "homepage": "https://json2pptx.henryge.com/",
+  "homepage": "https://pipto.henryge.com/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gezhiheng/pipto.git",

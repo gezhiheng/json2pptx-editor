@@ -1,9 +1,9 @@
 {
   "name": "ppt2json",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Convert PPTX files to json2pptx-compatible JSON.",
   "license": "MIT",
-  "homepage": "https://json2pptx.henryge.com/",
+  "homepage": "https://pipto.henryge.com/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gezhiheng/pipto.git",

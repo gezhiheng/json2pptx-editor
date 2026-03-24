@@ -1,12 +1,12 @@
 {
   "name": "pptx-previewer",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "A React component to preview PPTX JSON slides in the browser.",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "homepage": "https://json2pptx.henryge.com/",
+  "homepage": "https://pipto.henryge.com/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gezhiheng/pipto.git",
