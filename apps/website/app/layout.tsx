@@ -24,7 +24,7 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://pipto.henryge.com'),
   title: {
-    default: 'Pipto | JSON 驱动的演示文稿工作流',
+    default: 'Pipto | 用 JSON 构建演示文稿',
     template: '%s | Pipto'
   },
   description:
