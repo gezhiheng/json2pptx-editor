@@ -1,12 +1,12 @@
 {
   "name": "pptx-custom",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "Custom content and theme utilities for PPTX JSON templates.",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "homepage": "https://.henryge.com/",
+  "homepage": "https://pipto.henryge.com/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gezhiheng/pipto.git",
