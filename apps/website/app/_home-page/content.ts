@@ -16,7 +16,7 @@ export type WorkflowStep = {
 }
 
 export const repositoryHref = 'https://github.com/gezhiheng/pipto'
-export const docsHref = '/docs/json2pptx'
+export const docsHref = '/docs'
 
 export const navLinks = [
   { label: 'Feature', href: '#features', external: false },
