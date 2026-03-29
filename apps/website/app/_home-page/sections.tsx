@@ -228,76 +228,69 @@ function HomePageFeatures () {
 
 function FeatureModulesVisual () {
   return (
-    <div className='rounded-[28px] border border-[rgba(217,210,199,0.92)] bg-[linear-gradient(180deg,rgba(255,255,255,0.86),rgba(246,242,236,0.94))] p-5'>
-      <div className='mt-5 grid gap-3 min-[1040px]:grid-cols-5 min-[620px]:grid-cols-2'>
-        {packagePills.map((item) => {
-          const meta = packageFeatureMeta[item.name]
+    <div className='mt-5 grid gap-3 min-[1040px]:grid-cols-5 min-[620px]:grid-cols-2'>
+      {packagePills.map((item) => {
+        const meta = packageFeatureMeta[item.name]
 
-          return (
-            <HomePageLink
-              key={item.name}
-              className='group rounded-[22px] border border-[rgba(217,210,199,0.88)] bg-white/82 p-4 shadow-[0_18px_40px_rgba(79,70,63,0.05)] transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(224,108,97,0.26)] hover:bg-white/94'
-              href={item.href}
-              external
-            >
-              <span className={cx('inline-flex min-h-8 items-center rounded-full px-3 text-[0.72rem] font-bold tracking-[0.06em]', meta.badgeClassName)}>
-                {meta.label}
-              </span>
-              <strong className='mt-4 block font-mono text-[0.84rem] leading-[1.55] text-home-ink'>
-                {item.name}
-              </strong>
-              <span className='mt-2 block text-[0.77rem] leading-[1.65] text-home-copy'>
-                {meta.detail}
-              </span>
-              <span className={cx('mt-4 block h-0.75 w-13.5 rounded-full bg-linear-to-r transition duration-200 group-hover:w-18', meta.accentClassName)} aria-hidden='true' />
-            </HomePageLink>
-          )
-        })}
-      </div>
+        return (
+          <HomePageLink
+            key={item.name}
+            className='group rounded-[22px] border border-[rgba(217,210,199,0.88)] bg-white/82 p-4 shadow-[0_18px_40px_rgba(79,70,63,0.05)] transition duration-200 hover:-translate-y-0.5 hover:border-[rgba(224,108,97,0.26)] hover:bg-white/94'
+            href={item.href}
+            external
+          >
+            <span className={cx('inline-flex min-h-8 items-center rounded-full px-3 text-[0.72rem] font-bold tracking-[0.06em]', meta.badgeClassName)}>
+              {meta.label}
+            </span>
+            <strong className='mt-4 block font-mono text-[0.84rem] leading-[1.55] text-home-ink'>
+              {item.name}
+            </strong>
+            <span className='mt-2 block text-[0.77rem] leading-[1.65] text-home-copy'>
+              {meta.detail}
+            </span>
+            <span className={cx('mt-4 block h-0.75 w-13.5 rounded-full bg-linear-to-r transition duration-200 group-hover:w-18', meta.accentClassName)} aria-hidden='true' />
+          </HomePageLink>
+        )
+      })}
     </div>
   )
 }
 
 function FeatureRoundTripVisual () {
   return (
-    <div
-      className='rounded-3xl border border-[rgba(217,210,199,0.92)] bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(247,244,239,0.94))] p-4'
-      aria-hidden='true'
-    >
-      <div className='grid items-center gap-3 min-[561px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]'>
-        <div className='rounded-[20px] border border-[rgba(217,210,199,0.82)] bg-white/86 p-3.5'>
-          <div className='flex items-center justify-between text-[0.68rem] font-bold tracking-[0.08em] text-home-muted'>
-            <span>PPTX</span>
-            <span>Slide</span>
-          </div>
-          <div className='mt-3 rounded-2xl bg-[rgba(224,108,97,0.06)] p-3'>
-            <span className='block h-2.5 w-[72%] rounded-full bg-[rgba(79,70,63,0.18)]' />
-            <div className='mt-3 grid grid-cols-[1.05fr_0.95fr] gap-2.5'>
-              <span className='h-18 rounded-xl bg-[linear-gradient(160deg,rgba(224,108,97,0.28),rgba(255,255,255,0.7))]' />
-              <div className='space-y-2'>
-                <span className='block h-2.5 w-full rounded-full bg-[rgba(224,108,97,0.34)]' />
-                <span className='block h-2.5 w-[84%] rounded-full bg-[rgba(79,70,63,0.12)]' />
-                <span className='block h-2.5 w-[66%] rounded-full bg-[rgba(79,70,63,0.12)]' />
-              </div>
+    <div className='grid items-center gap-3 min-[561px]:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]'>
+      <div className='rounded-[20px] border border-[rgba(217,210,199,0.82)] bg-white/86 p-3.5'>
+        <div className='flex items-center justify-between text-[0.68rem] font-bold tracking-[0.08em] text-home-muted'>
+          <span>PPTX</span>
+          <span>Slide</span>
+        </div>
+        <div className='mt-3 rounded-2xl bg-[rgba(224,108,97,0.06)] p-3'>
+          <span className='block h-2.5 w-[72%] rounded-full bg-[rgba(79,70,63,0.18)]' />
+          <div className='mt-3 grid grid-cols-[1.05fr_0.95fr] gap-2.5'>
+            <span className='h-18 rounded-xl bg-[linear-gradient(160deg,rgba(224,108,97,0.28),rgba(255,255,255,0.7))]' />
+            <div className='space-y-2'>
+              <span className='block h-2.5 w-full rounded-full bg-[rgba(224,108,97,0.34)]' />
+              <span className='block h-2.5 w-[84%] rounded-full bg-[rgba(79,70,63,0.12)]' />
+              <span className='block h-2.5 w-[66%] rounded-full bg-[rgba(79,70,63,0.12)]' />
             </div>
           </div>
         </div>
+      </div>
 
-        <div className='grid justify-items-center gap-2 text-[2rem]'>
-          <TransformArrowIcon />
+      <div className='grid justify-items-center gap-2 text-[2rem]'>
+        <TransformArrowIcon />
+      </div>
+
+      <div className='rounded-[20px] border border-[rgba(217,210,199,0.82)] bg-white/86 p-3.5'>
+        <div className='flex items-center justify-between text-[0.68rem] font-bold tracking-[0.08em] text-home-muted'>
+          <span>JSON</span>
+          <span>Schema</span>
         </div>
-
-        <div className='rounded-[20px] border border-[rgba(217,210,199,0.82)] bg-white/86 p-3.5'>
-          <div className='flex items-center justify-between text-[0.68rem] font-bold tracking-[0.08em] text-home-muted'>
-            <span>JSON</span>
-            <span>Schema</span>
-          </div>
-          <div className='mt-3 rounded-[16px] bg-[rgba(61,77,179,0.06)] p-3 font-mono text-[0.72rem] leading-[1.7] text-home-copy'>
-            <span className='block text-home-slate'>{'{'} "slides": [</span>
-            <span className='block pl-3'>{'{'} "type": <span className='text-home-ember'>"title"</span>,</span>
-            <span className='block pl-3'><span className='text-home-slate'>"theme"</span>: <span className='text-home-ember'>"deck-a"</span></span>
-            <span className='block text-home-slate'>] {'}'}</span>
-          </div>
+        <div className='mt-3 rounded-[16px] bg-[rgba(61,77,179,0.06)] p-3 font-mono text-[0.72rem] leading-[1.7] text-home-copy'>
+          <span className='block text-home-slate'>{'{'} "slides": [</span>
+          <span className='block pl-3'>{'{'} "type": <span className='text-home-ember'>"title"</span>,</span>
+          <span className='block pl-3'><span className='text-home-slate'>"theme"</span>: <span className='text-home-ember'>"a"</span></span>
+          <span className='block text-home-slate'>] {'}'}</span>
         </div>
       </div>
     </div>
@@ -307,7 +300,7 @@ function FeatureRoundTripVisual () {
 function FeaturePreviewVisual () {
   return (
     <div
-      className='overflow-hidden rounded-[24px] border border-[rgba(217,210,199,0.92)] bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(247,244,239,0.94))]'
+      className='overflow-hidden rounded-3xl border border-[rgba(217,210,199,0.92)] bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(247,244,239,0.94))]'
       aria-hidden='true'
     >
       <div className='p-4'>
