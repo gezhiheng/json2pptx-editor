@@ -328,8 +328,8 @@ import {
   DEFAULT_SCHEMA_VERSION,
   applyCustomTheme,
   createPPTX,
-  importPPTXPreviewer,
-  parseDocument
+  parseDocument,
+  PPTXPreviewer
 } from '@henryge/pipto'
 import { parsePptxToJson } from '@henryge/pipto/ppt2json'
 import { parseCustomContent } from '@henryge/pipto/pptx-custom'
@@ -375,7 +375,6 @@ assert.equal(
   '#222222'
 )
 
-const { PPTXPreviewer } = await importPPTXPreviewer()
 const markup = renderToStaticMarkup(
   React.createElement(PPTXPreviewer, {
     slide: {

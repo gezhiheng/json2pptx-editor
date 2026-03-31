@@ -16,18 +16,26 @@ npm i react
 
 ## Root Imports
 
-The root entrypoint exposes the main non-React APIs directly:
+The root entrypoint exposes the main APIs directly:
 
 ```ts
 import {
   parseDocument,
   createPPTX,
   parsePptxToJson,
-  applyCustomTheme
+  applyCustomTheme,
+  PPTXPreviewer,
+  type Presentation,
+  type Slide
 } from '@henryge/pipto'
+
+import type { SchemaTypes, Json2pptxTypes } from '@henryge/pipto'
+
+type SchemaDoc = SchemaTypes.PresentationDocument
+type ExportSlide = Json2pptxTypes.Slide
 ```
 
-The previewer stays on its own subpath so server-side or non-React consumers do not need to pull it in eagerly.
+If you do not want to pull React into the root entrypoint, use the previewer subpath or the lazy loader below.
 
 ## Subpath Imports
 
@@ -43,7 +51,7 @@ import { PPTXPreviewer } from '@henryge/pipto/pptx-previewer'
 
 ## Previewer From The Root Package
 
-The root package exposes previewer types and a lazy loader:
+The root package also exposes a lazy loader if you want the previewer in a split chunk:
 
 ```ts
 import type { PPTXPreviewerProps } from '@henryge/pipto'

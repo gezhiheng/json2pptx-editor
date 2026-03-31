@@ -9,6 +9,7 @@ import {
   parseDocument,
   parsePptxToJson,
   ppt2json,
+  PPTXPreviewer as PPTXPreviewerRoot,
   pptxCustom,
   schema
 } from '@henryge/pipto'
@@ -47,6 +48,7 @@ describe('@henryge/pipto', () => {
   })
 
   it('re-exports the previewer subpath directly', () => {
+    expect(PPTXPreviewerRoot).toBe(PPTXPreviewer)
     expect(typeof PPTXPreviewer).toBe('function')
   })
 })

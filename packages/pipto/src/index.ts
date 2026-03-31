@@ -39,11 +39,21 @@ export {
   applyCustomTheme
 } from 'pptx-custom'
 
+export type { Presentation, PresentationData, PresentationTheme } from 'json2pptx'
+export { PPTXPreviewer } from 'pptx-previewer'
 export type {
   PPTXPreviewerProps,
+  Slide,
+  SlideElement,
   Slide as PreviewSlide,
   SlideElement as PreviewSlideElement
 } from 'pptx-previewer'
+
+export type * as SchemaTypes from 'json2pptx-schema'
+export type * as Json2pptxTypes from 'json2pptx'
+export type * as Ppt2jsonTypes from 'ppt2json'
+export type * as PptxCustomTypes from 'pptx-custom'
+export type * as PptxPreviewerTypes from 'pptx-previewer'
 
 export function importPPTXPreviewer() {
   return import('pptx-previewer')
