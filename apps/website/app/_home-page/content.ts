@@ -28,23 +28,23 @@ export const navLinks = [
 export const packagePills = [
   {
     name: 'json2pptx-schema',
-    href: '/docs/json2pptx-schema'
+    href: '/docs/json-to-ppt'
   },
   {
     name: 'json2pptx',
-    href: '/docs/json2pptx'
+    href: '/docs/json-to-ppt'
   },
   {
     name: 'pptx2json',
-    href: '/docs/pptx2json'
+    href: '/docs/ppt-to-json'
   },
   {
     name: 'pptx-previewer',
-    href: '/docs/pptx-previewer'
+    href: '/docs/browser-preview'
   },
   {
     name: 'pptx-custom',
-    href: '/docs/pptx-custom'
+    href: '/docs'
   }
 ] as const satisfies readonly PackagePillItem[]
 

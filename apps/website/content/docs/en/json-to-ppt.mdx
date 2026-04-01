@@ -1,0 +1,71 @@
+# JSON to PPT
+
+Use `createPPTX(presentation)` when your application already has structured slide data and you want to export it as a PowerPoint file.
+
+## Import
+
+```ts
+import { createPPTX, type Presentation } from '@henryge/pipto'
+```
+
+## Minimal Example
+
+```ts
+import { createPPTX, type Presentation } from '@henryge/pipto'
+
+const presentation: Presentation = {
+  title: 'Launch Update',
+  theme: {},
+  slides: [
+    {
+      elements: [
+        {
+          type: 'text',
+          left: 72,
+          top: 72,
+          width: 640,
+          height: 80,
+          content: '<p>Hello Pipto</p>'
+        }
+      ]
+    }
+  ]
+}
+
+const { blob, fileName } = await createPPTX(presentation)
+```
+
+The return value is:
+
+```ts
+{
+  blob: Blob
+  fileName: string
+}
+```
+
+## Download In The Browser
+
+```ts
+const { blob, fileName } = await createPPTX(presentation)
+
+const url = URL.createObjectURL(blob)
+const link = document.createElement('a')
+link.href = url
+link.download = fileName
+link.click()
+URL.revokeObjectURL(url)
+```
+
+## Validate Or Normalize First
+
+If your JSON comes from an editor, a database, or user input, you can normalize it before export:
+
+```ts
+import { createPPTX, parseDocument } from '@henryge/pipto'
+
+const parsed = parseDocument(input)
+const { blob, fileName } = await createPPTX(parsed)
+```
+
+`parseDocument()` is optional here. `createPPTX()` already validates internally, but calling it first is useful when you want to fail early or inspect normalized output.

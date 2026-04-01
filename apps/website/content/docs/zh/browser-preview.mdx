@@ -1,0 +1,65 @@
+# 浏览器预览
+
+当你想在 React 应用里渲染单页幻灯片时，使用 `PPTXPreviewer`。
+
+## 导入
+
+```tsx
+import { PPTXPreviewer, type Slide } from '@henryge/pipto'
+```
+
+## 渲染单页
+
+`PPTXPreviewer` 渲染的是单个 `slide`，不是整个 presentation 文档。
+
+```tsx
+import { PPTXPreviewer, type Slide } from '@henryge/pipto'
+
+const slide: Slide = {
+  background: {
+    type: 'solid',
+    color: '#f7f3eb'
+  },
+  elements: [
+    {
+      type: 'text',
+      left: 72,
+      top: 72,
+      width: 520,
+      height: 80,
+      content: '<p>Hello preview</p>'
+    }
+  ]
+}
+
+export function PreviewCard() {
+  return (
+    <div className='aspect-[16/9] w-full max-w-3xl overflow-hidden rounded-2xl border'>
+      <PPTXPreviewer slide={slide} />
+    </div>
+  )
+}
+```
+
+## 预览解析后的幻灯片
+
+```tsx
+import { parsePptxToJson, PPTXPreviewer } from '@henryge/pipto'
+
+const { presentation } = await parsePptxToJson(file)
+const firstSlide = presentation.slides?.[0]
+
+return firstSlide ? <PPTXPreviewer slide={firstSlide} /> : null
+```
+
+## 可选的懒加载
+
+如果你想把预览器拆到独立 chunk 里，可以使用懒加载入口：
+
+```tsx
+import { importPPTXPreviewer } from '@henryge/pipto'
+
+const { PPTXPreviewer } = await importPPTXPreviewer()
+```
+
+主流程仍然建议直接使用 `PPTXPreviewer` 导出。

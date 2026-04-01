@@ -1,0 +1,66 @@
+# @henryge/pipto
+
+`@henryge/pipto` 是 Pipto 工具链的统一入口包。安装一个包之后，就可以用同一个入口完成导出、解析和浏览器预览。
+
+## 安装
+
+```bash
+npm i @henryge/pipto
+```
+
+如果你要在 React 中渲染幻灯片，再安装 `react`：
+
+```bash
+npm i react
+```
+
+## 从同一个入口导入
+
+```ts
+import {
+  createPPTX,
+  parseDocument,
+  parsePptxToJson,
+  PPTXPreviewer,
+  type Presentation,
+  type Slide
+} from '@henryge/pipto'
+```
+
+当你要把演示 JSON 导出为 `.pptx` 时，使用 `createPPTX()`。当你要读取已有的 PowerPoint 文件时，使用 `parsePptxToJson()`。当你要在浏览器里渲染单页时，使用 `PPTXPreviewer`。
+
+## 核心工作流
+
+### JSON 转 PPT
+
+构建一个 `Presentation` 对象，然后用 `createPPTX(presentation)` 导出。
+
+[打开 JSON 转 PPT 文档](/docs/zh/json-to-ppt)
+
+### PPT 转 JSON
+
+把 `.pptx` `File` 传给 `parsePptxToJson(file)`，得到 `{ presentation, warnings }`。
+
+[打开 PPT 转 JSON 文档](/docs/zh/ppt-to-json)
+
+### 浏览器预览
+
+在 React 中把单个 `slide` 传给 `PPTXPreviewer` 渲染。
+
+[打开浏览器预览文档](/docs/zh/browser-preview)
+
+## 导出前的可选校验
+
+`createPPTX()` 内部已经会执行 parse、validate 和 normalize 流程。如果你希望更早发现输入问题，或者先拿到规范化结果，再调用 `parseDocument()`：
+
+```ts
+import { createPPTX, parseDocument } from '@henryge/pipto'
+
+const parsed = parseDocument({
+  title: '季度复盘',
+  theme: {},
+  slides: [{ elements: [] }]
+})
+
+const { blob, fileName } = await createPPTX(parsed)
+```

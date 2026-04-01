@@ -1,0 +1,65 @@
+# Browser Preview
+
+Use `PPTXPreviewer` when you want to render a single slide in a React application.
+
+## Import
+
+```tsx
+import { PPTXPreviewer, type Slide } from '@henryge/pipto'
+```
+
+## Render One Slide
+
+`PPTXPreviewer` renders one `slide`, not the whole presentation document.
+
+```tsx
+import { PPTXPreviewer, type Slide } from '@henryge/pipto'
+
+const slide: Slide = {
+  background: {
+    type: 'solid',
+    color: '#f7f3eb'
+  },
+  elements: [
+    {
+      type: 'text',
+      left: 72,
+      top: 72,
+      width: 520,
+      height: 80,
+      content: '<p>Hello preview</p>'
+    }
+  ]
+}
+
+export function PreviewCard() {
+  return (
+    <div className='aspect-[16/9] w-full max-w-3xl overflow-hidden rounded-2xl border'>
+      <PPTXPreviewer slide={slide} />
+    </div>
+  )
+}
+```
+
+## Preview Imported Slides
+
+```tsx
+import { parsePptxToJson, PPTXPreviewer } from '@henryge/pipto'
+
+const { presentation } = await parsePptxToJson(file)
+const firstSlide = presentation.slides?.[0]
+
+return firstSlide ? <PPTXPreviewer slide={firstSlide} /> : null
+```
+
+## Optional Lazy Loading
+
+If you want to keep the previewer in a separate chunk, use the lazy loader:
+
+```tsx
+import { importPPTXPreviewer } from '@henryge/pipto'
+
+const { PPTXPreviewer } = await importPPTXPreviewer()
+```
+
+The main preview workflow still uses the direct `PPTXPreviewer` export.

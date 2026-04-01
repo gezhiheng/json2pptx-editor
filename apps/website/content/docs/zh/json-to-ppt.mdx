@@ -1,0 +1,71 @@
+# JSON 转 PPT
+
+当你的应用已经拥有结构化的幻灯片数据，并且想导出成 PowerPoint 文件时，使用 `createPPTX(presentation)`。
+
+## 导入
+
+```ts
+import { createPPTX, type Presentation } from '@henryge/pipto'
+```
+
+## 最小示例
+
+```ts
+import { createPPTX, type Presentation } from '@henryge/pipto'
+
+const presentation: Presentation = {
+  title: '产品更新',
+  theme: {},
+  slides: [
+    {
+      elements: [
+        {
+          type: 'text',
+          left: 72,
+          top: 72,
+          width: 640,
+          height: 80,
+          content: '<p>Hello Pipto</p>'
+        }
+      ]
+    }
+  ]
+}
+
+const { blob, fileName } = await createPPTX(presentation)
+```
+
+返回结果是：
+
+```ts
+{
+  blob: Blob
+  fileName: string
+}
+```
+
+## 浏览器下载
+
+```ts
+const { blob, fileName } = await createPPTX(presentation)
+
+const url = URL.createObjectURL(blob)
+const link = document.createElement('a')
+link.href = url
+link.download = fileName
+link.click()
+URL.revokeObjectURL(url)
+```
+
+## 先校验或规范化
+
+如果你的 JSON 来自编辑器、数据库或者用户输入，可以先跑一遍 `parseDocument()`：
+
+```ts
+import { createPPTX, parseDocument } from '@henryge/pipto'
+
+const parsed = parseDocument(input)
+const { blob, fileName } = await createPPTX(parsed)
+```
+
+这里的 `parseDocument()` 是可选的。`createPPTX()` 本身会做内部校验，但当前置调用时，你可以更早发现错误，或者检查规范化后的结果。

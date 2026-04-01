@@ -1,0 +1,65 @@
+# PPT to JSON
+
+Use `parsePptxToJson(file)` when you want to load an existing PowerPoint file and convert it into the Pipto presentation format.
+
+## Import
+
+```ts
+import { parsePptxToJson } from '@henryge/pipto'
+```
+
+## Parse A Selected File
+
+```ts
+import { parsePptxToJson } from '@henryge/pipto'
+
+async function handleUpload(file: File) {
+  const { presentation, warnings } = await parsePptxToJson(file)
+
+  console.log(presentation)
+  console.log(warnings)
+}
+```
+
+The return value is:
+
+```ts
+{
+  presentation: PresentationData
+  warnings: string[]
+}
+```
+
+## Browser Example
+
+```ts
+const input = document.querySelector('input[type="file"]') as HTMLInputElement
+
+input.addEventListener('change', async () => {
+  const file = input.files?.[0]
+  if (!file) return
+
+  const { presentation, warnings } = await parsePptxToJson(file)
+  console.log(presentation.slides)
+  console.log(warnings)
+})
+```
+
+## Node-Compatible File Input
+
+`parsePptxToJson()` expects a `File`. In Node, create one from a buffer first:
+
+```ts
+import { File } from 'node:buffer'
+import { readFile } from 'node:fs/promises'
+import { parsePptxToJson } from '@henryge/pipto'
+
+const buffer = await readFile('deck.pptx')
+const file = new File([buffer], 'deck.pptx', {
+  type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+})
+
+const { presentation, warnings } = await parsePptxToJson(file)
+```
+
+The parsed `presentation` can then be edited, exported again with [`createPPTX()`](/docs/json-to-ppt), or rendered with [`PPTXPreviewer`](/docs/browser-preview).

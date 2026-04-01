@@ -1,0 +1,65 @@
+# PPT 转 JSON
+
+当你想读取已有的 PowerPoint 文件，并把它转换成 Pipto 的演示数据格式时，使用 `parsePptxToJson(file)`。
+
+## 导入
+
+```ts
+import { parsePptxToJson } from '@henryge/pipto'
+```
+
+## 解析用户选择的文件
+
+```ts
+import { parsePptxToJson } from '@henryge/pipto'
+
+async function handleUpload(file: File) {
+  const { presentation, warnings } = await parsePptxToJson(file)
+
+  console.log(presentation)
+  console.log(warnings)
+}
+```
+
+返回结果是：
+
+```ts
+{
+  presentation: PresentationData
+  warnings: string[]
+}
+```
+
+## 浏览器示例
+
+```ts
+const input = document.querySelector('input[type="file"]') as HTMLInputElement
+
+input.addEventListener('change', async () => {
+  const file = input.files?.[0]
+  if (!file) return
+
+  const { presentation, warnings } = await parsePptxToJson(file)
+  console.log(presentation.slides)
+  console.log(warnings)
+})
+```
+
+## Node 里的 File 包装
+
+`parsePptxToJson()` 的输入是 `File`。如果你在 Node 环境里调用，可以先用 buffer 包装一个 `File`：
+
+```ts
+import { File } from 'node:buffer'
+import { readFile } from 'node:fs/promises'
+import { parsePptxToJson } from '@henryge/pipto'
+
+const buffer = await readFile('deck.pptx')
+const file = new File([buffer], 'deck.pptx', {
+  type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+})
+
+const { presentation, warnings } = await parsePptxToJson(file)
+```
+
+解析得到的 `presentation` 可以继续编辑、再次通过 [`createPPTX()`](/docs/zh/json-to-ppt) 导出，或者交给 [`PPTXPreviewer`](/docs/zh/browser-preview) 做浏览器预览。

@@ -1,0 +1,66 @@
+# @henryge/pipto
+
+`@henryge/pipto` is the umbrella package for the Pipto toolchain. Install one package, then use the same entrypoint for export, import, and browser preview.
+
+## Install
+
+```bash
+npm i @henryge/pipto
+```
+
+If you render slides in React, install `react` as well:
+
+```bash
+npm i react
+```
+
+## Start With One Import
+
+```ts
+import {
+  createPPTX,
+  parseDocument,
+  parsePptxToJson,
+  PPTXPreviewer,
+  type Presentation,
+  type Slide
+} from '@henryge/pipto'
+```
+
+Use `createPPTX()` when you want to export presentation JSON to a `.pptx` file. Use `parsePptxToJson()` when you want to read an existing PowerPoint file. Use `PPTXPreviewer` when you want to render one slide in the browser.
+
+## Core Workflows
+
+### JSON to PPT
+
+Build a `Presentation` object and export it with `createPPTX(presentation)`.
+
+[Open the JSON to PPT guide](/docs/json-to-ppt)
+
+### PPT to JSON
+
+Pass a `.pptx` `File` into `parsePptxToJson(file)` and get back `{ presentation, warnings }`.
+
+[Open the PPT to JSON guide](/docs/ppt-to-json)
+
+### Browser Preview
+
+Render a single `slide` with `PPTXPreviewer` inside your React UI.
+
+[Open the browser preview guide](/docs/browser-preview)
+
+## Optional Validation Before Export
+
+`createPPTX()` already runs the parse, validate, and normalize pipeline internally. If you want to validate earlier or normalize user input before export, call `parseDocument()` yourself:
+
+```ts
+import { createPPTX, parseDocument } from '@henryge/pipto'
+
+const parsed = parseDocument({
+  title: 'Quarterly Review',
+  theme: {},
+  slides: [{ elements: [] }]
+})
+
+const { blob, fileName } = await createPPTX(parsed)
+```
