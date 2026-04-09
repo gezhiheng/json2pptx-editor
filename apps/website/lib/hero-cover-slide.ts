@@ -45,7 +45,7 @@ export const heroCoverSlide: Slide = {
       left: 240.25,
       top: 130.1,
       defaultColor: '#333',
-      content: '<p style="text-align: center;"><strong><span style="font-size: 26.7px; color: rgb(128, 147, 125);">商务汇报|工作总结|工作计划</span></strong></p>'
+      content: '<p style="text-align: center;"><strong><span style="font-size: 26.7px; color: rgb(128, 147, 125);">定制 | 转换 | 预览</span></strong></p>'
     },
     {
       type: 'text',
@@ -54,7 +54,7 @@ export const heroCoverSlide: Slide = {
       left: 58.7,
       top: 190.2,
       defaultColor: '#333',
-      content: '<p style="text-align: center;"><strong><span style="font-size: 54px; color: rgba(128,147,125,1);">模板封面标题</span></strong></p>'
+      content: '<p style="text-align: center;"><strong><span style="font-size: 54px; color: rgba(128,147,125,1);">JSON & PPT 转换工具链</span></strong></p>'
     },
     {
       type: 'text',
@@ -63,7 +63,7 @@ export const heroCoverSlide: Slide = {
       left: 189.00344009489925,
       top: 291.1410407151062,
       defaultColor: '#333',
-      content: '<p style="text-align: center;"><span style="font-size: 16px; color: rgb(128, 147, 125);">模板封面正文模板封面正文模板封面正文模板封面正文模板封面正文模板封面正文模板封面正文模板封面正文模板封面正文模板封面正文模板封面正文模板封面正文模板封面正文</span></p>'
+      content: '<p style="text-align: center;"><span style="font-size: 16px; color: rgb(128, 147, 125);">Pipto 用 JSON 定义内容，浏览器即时预览，一键生成 PPT</span></p>'
     },
     {
       type: 'shape',
@@ -78,7 +78,7 @@ export const heroCoverSlide: Slide = {
         color: '#ddb6aa'
       },
       text: {
-        content: '<p style="text-align: center;"><em><span style="font-size: 16px; color: #ffffff;">演讲人：XXX</span></em></p>',
+        content: '<p style="text-align: center;"><em><span style="font-size: 16px; color: #ffffff;">演讲人：Henry Ge</span></em></p>',
         defaultColor: '#333',
         align: 'middle'
       }
